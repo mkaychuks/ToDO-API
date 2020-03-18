@@ -1,0 +1,1 @@
+web: gunicorn todojwt.wsgi --log-file -
