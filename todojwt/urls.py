@@ -19,5 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('profile/', include('rest_auth.urls')), # ALLOWS FOR LOGIN AND LOGOUT
-    path('signup/', include('rest_auth.registration.urls')) # ALLOWS FOR CREATING A USER
+    path('signup/', include('rest_auth.registration.urls')), # ALLOWS FOR CREATING A USER
+    path('', include('todoapp.urls'))
 ]

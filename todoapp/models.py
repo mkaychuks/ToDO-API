@@ -2,18 +2,14 @@ from django.db import models
 
 
 class Todo(models.Model):
-    VERY_IMPORTANT = 'VI'
-    IMPORTANT = 'I'
-    LESS_IMPORTANT = 'LI'
-
     SEVERITY = [
-        (VERY_IMPORTANT, 'Very Important'),
-        (IMPORTANT, 'Important'),
-        (LESS_IMPORTANT, 'Less Important'),
+        ('VERY_IMPORTANT', 'Very Important'),
+        ('IMPORTANT', 'Important'),
+        ('LESS_IMPORTANT', 'Less Important'),
     ]
 
     title = models.CharField(max_length=250)
-    tag = models.CharField(max_length=21, choices=SEVERITY, default=LESS_IMPORTANT)
+    tag = models.CharField(max_length=21, choices=SEVERITY, default='LESS_IMPORTANT')
     description = models.TextField(null=True, blank=True)
     date_created = models.DateField(auto_now_add=True)
     time_created = models.TimeField(auto_now_add=True)
