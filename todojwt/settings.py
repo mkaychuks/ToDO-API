@@ -42,6 +42,9 @@ INSTALLED_APPS = [
 
     'django.contrib.sites',
 
+    # Local installations
+    'todoapp.apps.TodoappConfig',
+
     # 3rd-Party installations
     'corsheaders',
     'rest_framework',
@@ -94,7 +97,7 @@ WSGI_APPLICATION = 'todojwt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
+        'NAME': 'todoapp',
         'USER': 'mkaychuks',
         'PASSWORD': 'testing321',
         'HOST': 'localhost',
