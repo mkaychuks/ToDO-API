@@ -10,10 +10,4 @@ class TodoAdmin(admin.ModelAdmin):
         (None, {'fields': ['title', 'tag', 'description']})
     ]
 
-    def save_model(self, request, obj, form, change):
-        if getattr(obj, 'owner', None) is None:
-            obj.owner = request.user
-        obj.save()
-
-
 admin.site.register(Todo, TodoAdmin)
