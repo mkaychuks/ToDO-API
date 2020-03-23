@@ -1,12 +1,19 @@
+from django.shortcuts import get_object_or_404
+
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED,HTTP_400_BAD_REQUEST
+from rest_framework.status import (
+    HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST,
+    HTTP_204_NO_CONTENT
+) 
 from rest_framework.generics import CreateAPIView
 
 
 from todoapp.models import Todo
 from todoapp.serializers import TodoSerializer
+from todoapp.permissions import IsAuthor
 
 
 class HomePageView(APIView):
@@ -20,9 +27,9 @@ class HomePageView(APIView):
 
 
 class ListTodoView(APIView):
-    """Enable a logged in user create a TODO"""
+    """Enable a logged in user view a TODO created by them"""
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsAuthor)
 
     def get(self, request, format=None):
         user = request.user
@@ -40,3 +47,13 @@ class CreateTodo(CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class DeleteTodo(APIView):
+    """Allows for users to delete TODO"""
+    permission_classes = (IsAuthenticated, IsAuthor)
+
+    def delete(slf, request, pk, format=None):
+        todo = get_object_or_404(Todo, pk=pk)
+        todo.delete()
+        return Response(status=HTTP_204_NO_CONTENT)
