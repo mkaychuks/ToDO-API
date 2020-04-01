@@ -53,7 +53,7 @@ class DeleteTodo(APIView):
     """Allows for users to delete TODO"""
     permission_classes = (IsAuthenticated, IsAuthor)
 
-    def delete(slf, request, pk, format=None):
+    def delete(self, request, pk, format=None):
         todo = get_object_or_404(Todo, pk=pk)
         todo.delete()
         return Response(status=HTTP_204_NO_CONTENT)
