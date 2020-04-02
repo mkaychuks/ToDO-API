@@ -11,8 +11,8 @@ class Todo(models.Model):
     title = models.CharField(max_length=250)
     tag = models.CharField(max_length=21, choices=SEVERITY, default='LESS_IMPORTANT')
     description = models.TextField(null=True, blank=True)
-    date_created = models.DateField(auto_now_add=True)
-    time_created = models.TimeField(auto_now_add=True)
+    date_created = models.DateField(auto_now=True)
+    time_created = models.TimeField(auto_now=True)
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='user', null=True, blank=True)
 
 
