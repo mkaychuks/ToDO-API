@@ -8,7 +8,9 @@ from rest_framework.status import (
     HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST,
     HTTP_204_NO_CONTENT
 ) 
-from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import (
+    CreateAPIView, UpdateAPIView, RetrieveAPIView
+) 
 
 
 from todoapp.models import Todo
@@ -59,8 +61,15 @@ class DeleteTodo(APIView):
         return Response(status=HTTP_204_NO_CONTENT)
 
 
-class UpdateTodo(RetrieveUpdateAPIView):
-    """ Allows for retriving and updating a particular TODO"""
+class UpdateTodo(UpdateAPIView):
+    """ Allows for updating a particular TODO"""
+    serializer_class = TodoSerializer
+    permission_classes = (IsAuthenticated, IsAuthor)
+    queryset = Todo.objects.all()
+
+
+class RetrieveTodo(RetrieveAPIView):
+    """ Allows for retrieving a particualr TODO"""
     serializer_class = TodoSerializer
     permission_classes = (IsAuthenticated, IsAuthor)
     queryset = Todo.objects.all()
