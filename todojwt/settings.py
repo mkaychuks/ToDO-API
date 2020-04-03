@@ -159,6 +159,16 @@ REST_FRAMEWORK = {
 # Allows REST-AUTH to user Tokens instead of Keys
 REST_USE_JWT = True
 
+# JWT expiration time settings and other  JWT configurations....
+import datetime
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=24),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7)
+}
+
+
 # DJANGO-REST-AUTH AND DJANGO-ALLAUTH SETTINGS
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
